@@ -15,7 +15,7 @@ Testnet only — no mainnet, no backend, no persistence.
 
 ## Live demo
 
-<!-- TODO: add the deployed Vercel URL here -->
+[padala-stellar.vercel.app](https://padala-stellar.vercel.app/)
 
 ## Setup
 
@@ -45,8 +45,6 @@ everything runs client-side against the public Horizon testnet endpoint.
    in Freighter. The result banner shows the transaction hash with a link to stellar.expert.
 
 ## Screenshots
-
-<!-- TODO: capture these and drop them in /screenshots -->
 
 | Wallet connected | Balance displayed |
 |---|---|
