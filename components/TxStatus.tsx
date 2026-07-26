@@ -17,8 +17,8 @@ export function TxStatus({ result }: TxStatusProps) {
 
   if (result.status === "pending") {
     return (
-      <div className="flex items-center gap-2 rounded-lg border border-zinc-700 bg-zinc-800/50 p-3 text-sm text-zinc-300">
-        <span className="h-3 w-3 animate-spin rounded-full border-2 border-zinc-500 border-t-cyan-400" />
+      <div className="flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-800/50 p-3 text-sm text-slate-300">
+        <span className="h-3 w-3 animate-spin rounded-full border-2 border-slate-500 border-t-cyan-400" />
         Submitting transaction...
       </div>
     );

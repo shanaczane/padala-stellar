@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Padala
 
-## Getting Started
+A simple payment dApp on Stellar Testnet. Connect a Freighter wallet, view your XLM balance,
+fund it via Friendbot, and send XLM to any testnet address with clear success/failure feedback.
+Testnet only — no mainnet, no backend, no persistence.
 
-First, run the development server:
+## Tech stack
+
+- Next.js 14+ (App Router), TypeScript
+- Tailwind CSS
+- [`@stellar/freighter-api`](https://www.npmjs.com/package/@stellar/freighter-api) for wallet connect/sign
+- [`@stellar/stellar-sdk`](https://www.npmjs.com/package/@stellar/stellar-sdk) for Horizon queries and transaction building
+- Stellar Testnet (`https://horizon-testnet.stellar.org`) + Friendbot for funding
+- Deployed on Vercel
+
+## Live demo
+
+<!-- TODO: add the deployed Vercel URL here -->
+
+## Setup
+
+**Prerequisites**
+
+- Node 18+
+- pnpm
+- [Freighter](https://freighter.app) browser extension, set to **Testnet**
+
+**Install and run**
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). No environment variables are needed —
+everything runs client-side against the public Horizon testnet endpoint.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How to use
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Connect** — click "Connect Wallet" and approve the request in Freighter. If Freighter
+   isn't on Testnet, the app will block transactions until you switch it.
+2. **Fund** — a fresh address shows "Not funded yet". Click "Fund with Friendbot" to receive
+   testnet XLM.
+3. **Send** — enter a destination address and amount, click Send, and approve the signature
+   in Freighter. The result banner shows the transaction hash with a link to stellar.expert.
 
-## Learn More
+## Screenshots
 
-To learn more about Next.js, take a look at the following resources:
+<!-- TODO: capture these and drop them in /screenshots -->
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Wallet connected | Balance displayed |
+|---|---|
+| ![Wallet connected](screenshots/wallet-connected.png) | ![Balance displayed](screenshots/balance-displayed.png) |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Sending a transaction | Transaction result |
+|---|---|
+| ![Sending a transaction](screenshots/tx-pending.png) | ![Transaction result](screenshots/tx-success.png) |

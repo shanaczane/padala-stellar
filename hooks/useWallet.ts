@@ -22,6 +22,7 @@ export type WalletStatus =
 interface UseWalletResult {
   status: WalletStatus;
   isWrongNetwork: boolean;
+  isConnecting: boolean;
   connectError: string | null;
   connect: () => Promise<void>;
   disconnect: () => void;
@@ -29,6 +30,7 @@ interface UseWalletResult {
 
 export function useWallet(): UseWalletResult {
   const [status, setStatus] = useState<WalletStatus>({ state: "checking" });
+  const [isConnecting, setIsConnecting] = useState(false);
   const [connectError, setConnectError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -51,11 +53,14 @@ export function useWallet(): UseWalletResult {
 
   const connect = useCallback(async () => {
     setConnectError(null);
+    setIsConnecting(true);
     try {
       const connection = await connectFreighter();
       setStatus({ state: "connected", ...connection });
     } catch (err) {
       setConnectError(err instanceof FreighterError ? err.message : "Failed to connect to Freighter");
+    } finally {
+      setIsConnecting(false);
     }
   }, []);
 
@@ -67,5 +72,5 @@ export function useWallet(): UseWalletResult {
 
   const isWrongNetwork = status.state === "connected" && status.network !== TESTNET_NETWORK;
 
-  return { status, isWrongNetwork, connectError, connect, disconnect };
+  return { status, isWrongNetwork, isConnecting, connectError, connect, disconnect };
 }

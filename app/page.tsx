@@ -8,7 +8,7 @@ import { useWallet } from "@/hooks/useWallet";
 import { useBalance } from "@/hooks/useBalance";
 
 export default function Home() {
-  const { status, isWrongNetwork, connectError, connect, disconnect } = useWallet();
+  const { status, isWrongNetwork, isConnecting, connectError, connect, disconnect } = useWallet();
   const balance = useBalance();
 
   const address = status.state === "connected" ? status.address : null;
@@ -23,13 +23,14 @@ export default function Home() {
   }, [isConnectedOnTestnet, address]);
 
   return (
-    <div className="flex flex-1 items-start justify-center bg-zinc-950 px-4 py-16">
+    <div className="flex flex-1 items-start justify-center px-4 py-16">
       <main className="flex w-full max-w-md flex-col gap-6">
-        <h1 className="text-center text-2xl font-semibold text-zinc-50">Padala</h1>
+        <h1 className="text-center text-2xl font-semibold text-slate-50">Padala</h1>
 
         <WalletCard
           status={status}
           isWrongNetwork={isWrongNetwork}
+          isConnecting={isConnecting}
           connectError={connectError}
           onConnect={connect}
           onDisconnect={disconnect}
