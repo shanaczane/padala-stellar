@@ -1,4 +1,4 @@
-import { isConnected, requestAccess, getNetwork } from "@stellar/freighter-api";
+import { isConnected, requestAccess, getNetwork, signTransaction } from "@stellar/freighter-api";
 
 export const TESTNET_NETWORK = "TESTNET";
 
@@ -46,4 +46,16 @@ export async function connectFreighter(): Promise<WalletConnection> {
   const { network, networkPassphrase } = await fetchNetwork();
 
   return { address: access.address, network, networkPassphrase };
+}
+
+export async function signWithFreighter(
+  xdr: string,
+  networkPassphrase: string,
+  address: string,
+): Promise<string> {
+  const result = await signTransaction(xdr, { networkPassphrase, address });
+  if (result.error) {
+    throw new FreighterError(result.error.message, result.error.code);
+  }
+  return result.signedTxXdr;
 }
